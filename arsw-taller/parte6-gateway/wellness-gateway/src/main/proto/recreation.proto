@@ -1,0 +1,40 @@
+syntax = "proto3";
+option java_multiple_files = true;
+option java_package = "edu.eci.arsw.recreation";
+
+service RecreationService {
+    rpc GetResources    (ResourceListRequest) returns (ResourceList);
+    rpc ReserveResource (ReservationRequest)  returns (ReservationResponse);
+    rpc ReturnResource  (ReturnRequest)        returns (ReturnResponse);
+}
+
+message ResourceListRequest {}
+
+message Resource {
+    string resource_id = 1;
+    string name        = 2;
+    bool   available   = 3;
+}
+
+message ResourceList {
+    repeated Resource resources = 1;
+}
+
+message ReservationRequest {
+    string student_id  = 1;
+    string resource_id = 2;
+}
+
+message ReservationResponse {
+    bool   success = 1;
+    string message = 2;
+}
+
+message ReturnRequest {
+    string resource_id = 1;
+}
+
+message ReturnResponse {
+    bool   success = 1;
+    string message = 2;
+}

@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "edu.eci.arsw.eciciencia.agenda";
+
+service AgendaService {
+    rpc GetActivities    (ActivityFilter)   returns (ActivityList);
+    rpc GetByTimeSlot    (TimeSlotRequest)  returns (ActivityList);
+    rpc RegisterAttendee (AttendeeRequest)  returns (AttendeeResponse);
+}
+
+message ActivityFilter {
+    string date = 1;
+}
+
+message TimeSlotRequest {
+    string date      = 1;
+    string time_slot = 2;
+}
+
+message Activity {
+    string activity_id = 1;
+    string name        = 2;
+    string location    = 3;
+    string time_slot   = 4;
+    int32  capacity    = 5;
+    int32  registered  = 6;
+}
+
+message ActivityList {
+    repeated Activity activities = 1;
+}
+
+message AttendeeRequest {
+    string activity_id  = 1;
+    string attendee_id  = 2;
+    string attendee_name = 3;
+}
+
+message AttendeeResponse {
+    bool   success = 1;
+    string message = 2;
+}
